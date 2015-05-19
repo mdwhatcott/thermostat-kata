@@ -3,18 +3,20 @@ package controller
 //go:generate gunit
 
 /*
+Test Cases:
 1. On startup everything is off
-2. nothingTurnsOnIfTempJustRight
+2a. nothingTurnsOnIfTempJustRight
+2b. noAlarmReturnedIfTempNominal
 3. turnOnCoolerAndBlowerIfTooHot
 4. turnOnHeaterAndBlowerIfTooCold
-5. turnOnHiTempAlarmAtThreshold
-6. turnOnLoTempAlarmAtThreshold
-7. hiTempAlarmResetsWhenTempGoesDown
-8. loTempAlarmResetsWhenTempGoesUp
-9. heaterTurnsOffButBlowerRemainsOnAfterHeating
+5. HeatAlarmReturnedAtThreshold
+6. ColdAlarmReturnedAtThreshold
+7. NoAlarmReturnedWhenHighTempReturnsToNominal
+8. NoAlarmReturnedWhenLowTempReturnsToNominal
+9. heaterTurnsOffButBlowerRemainsOnFor5MinutesAfterHeating
 10. coolerTurnsOffIfHotAgain
-11. coolerMustRemainOffForFiveMinBeforeRestart
+11. coolerMustRemainOffForThreeMinutesBeforeRestart
 12. coolerDoesNotTurnOnAfterDelayIfNotNeeded
-13. blowerDelaysAfterFurnaceGoesOff
+13. blowerDelaysAfterFurnaceGoesOff (necessary?)
 14. blowerStaysOnWhenCoolingAfterHeating
 */

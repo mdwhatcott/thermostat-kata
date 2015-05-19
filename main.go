@@ -1,20 +1,36 @@
 package main
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/mdwhatcott/thermostat-kata/controller"
 	"github.com/mdwhatcott/thermostat-kata/hvac"
-	"github.com/mdwhatcott/thermostat-kata/thermometer"
 )
 
 func main() {
-	sensor := thermometer.New()
 	hardware := hvac.New()
-	controls := controller.New(sensor, hardware, 72)
+	controls := controller.New(hardware, 72)
 
 	for {
 		controls.Regulate()
-		time.Sleep(time.Second)
+		report(hardware)
+		time.Sleep(interval)
 	}
 }
+
+func report(hardware hvac.Hardware) {
+	if hardware.ColdAlarm() {
+		fmt.Println("[WARN] Too Cold!", hardware.AmbientTemperature())
+	} else if hardware.HeatAlarm() {
+		fmt.Println("[WARN] Too Hot!", hardware.AmbientTemperature())
+	} else {
+		fmt.Printf("[INFO] Environment stable; Temperature: %d; Cooling: %t; Blowing: %t; Heating: %t\n",
+			hardware.AmbientTemperature(),
+			hardware.IsCooling(),
+			hardware.IsBlowing(),
+			hardware.IsHeating())
+	}
+}
+
+var interval = time.Minute
