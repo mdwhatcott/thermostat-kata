@@ -10,7 +10,8 @@ import (
 
 func main() {
 	hardware := hvac.New()
-	controls := controller.New(hardware, 72)
+	controls := controller.New(hardware)
+	controls.Calibrate(IDEAL, DELTA)
 
 	for {
 		controls.Regulate()
@@ -34,3 +35,8 @@ func report(hardware hvac.Hardware) {
 }
 
 var interval = time.Minute
+
+const (
+	IDEAL = 72
+	DELTA = 3
+)
