@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"time"
 
 	"github.com/mdwhatcott/thermostat-kata/controller"
@@ -10,23 +10,23 @@ import (
 
 func main() {
 	hardware := hvac.New()
-	controls := controller.New(hardware)
-	controls.Calibrate(IDEAL, DELTA)
+	thermostat := controller.New(hardware)
+	thermostat.Calibrate(IDEAL_TEMPERATURE, ALLOWED_DELTA_IN_DEGREES, ALARM_DELTA_IN_DEGREES)
 
 	for {
-		controls.Regulate()
+		thermostat.Regulate()
 		report(hardware)
-		time.Sleep(interval)
+		time.Sleep(regulationInterval)
 	}
 }
 
 func report(hardware hvac.Hardware) {
 	if hardware.ColdAlarm() {
-		fmt.Println("[WARN] Too Cold!", hardware.AmbientTemperature())
+		log.Println("[WARN] Too Cold!", hardware.AmbientTemperature())
 	} else if hardware.HeatAlarm() {
-		fmt.Println("[WARN] Too Hot!", hardware.AmbientTemperature())
+		log.Println("[WARN] Too Hot!", hardware.AmbientTemperature())
 	} else {
-		fmt.Printf("[INFO] Environment stable; Temperature: %d; Cooling: %t; Blowing: %t; Heating: %t\n",
+		log.Printf("[INFO] Environment stable; Temperature: %d; Cooling: %t; Blowing: %t; Heating: %t\n",
 			hardware.AmbientTemperature(),
 			hardware.IsCooling(),
 			hardware.IsBlowing(),
@@ -34,9 +34,10 @@ func report(hardware hvac.Hardware) {
 	}
 }
 
-var interval = time.Minute
+var regulationInterval = time.Minute
 
 const (
-	IDEAL = 72
-	DELTA = 3
+	IDEAL_TEMPERATURE        = 70
+	ALLOWED_DELTA_IN_DEGREES = 5
+	ALARM_DELTA_IN_DEGREES   = 10
 )
