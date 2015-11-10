@@ -15,26 +15,12 @@ func main() {
 
 	for {
 		thermostat.Regulate()
-		report(hardware)
+		log.Println(hardware)
 		time.Sleep(regulationInterval)
 	}
 }
 
-func report(hardware hvac.Hardware) {
-	if hardware.ColdAlarm() {
-		log.Println("[WARN] Too Cold!", hardware.AmbientTemperature())
-	} else if hardware.HeatAlarm() {
-		log.Println("[WARN] Too Hot!", hardware.AmbientTemperature())
-	} else {
-		log.Printf("[INFO] Environment stable; Temperature: %d; Cooling: %t; Blowing: %t; Heating: %t\n",
-			hardware.AmbientTemperature(),
-			hardware.IsCooling(),
-			hardware.IsBlowing(),
-			hardware.IsHeating())
-	}
-}
-
-var regulationInterval = time.Minute
+var regulationInterval = time.Second // time.Minute
 
 const (
 	IDEAL_TEMPERATURE        = 70

@@ -3,7 +3,7 @@ package hvac
 // Hardware is a manufacture-specified interface for
 // all hardware controlled by the thermostat.
 type Hardware interface {
-	AmbientTemperature() int
+	Temperature() Temperature
 
 	SetHeater(on bool)
 	SetCooler(on bool)
@@ -17,3 +17,6 @@ type Hardware interface {
 	ColdAlarm() bool
 	HeatAlarm() bool
 }
+
+// Temperature represents a measurement of temperature in degrees Fahrenheit.
+type Temperature int8
