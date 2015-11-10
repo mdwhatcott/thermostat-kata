@@ -55,7 +55,7 @@ func (this *FakeHardware) State() string {
 }
 func (this *FakeHardware) writeState(writer io.Writer, state bool, message string) {
 	if state {
-		fmt.Fprint(message + " ")
+		fmt.Fprint(writer, message + " ")
 	}
 }
 
