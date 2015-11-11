@@ -20,7 +20,7 @@ Good news: We have the hardware documentation! The hardware interface is defined
 
 ```go
 type Hardware interface {
-	Temperature() Temperature // Returns the current ambient temperature.
+	Temperature() int // Returns the current ambient temperature in degrees Fahrenheit.
 
 	SetBlower(on bool)    // Turns the blower on or off.
 	SetCooler(on bool)    // Turns the air conditioner on or off.
