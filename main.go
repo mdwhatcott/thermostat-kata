@@ -10,8 +10,11 @@ import (
 
 func main() {
 	hardware := hvac.New()
-	thermostat := controller.New(hardware)
-	thermostat.Calibrate(IDEAL_TEMPERATURE, ALLOWED_DELTA_IN_DEGREES, ALARM_DELTA_IN_DEGREES)
+	thermostat := controller.New(hardware, controller.Settings{
+		Ideal: IDEAL_TEMPERATURE,
+		Delta: ALLOWED_DELTA_IN_DEGREES,
+		Alarm: ALARM_DELTA_IN_DEGREES,
+	})
 
 	for {
 		thermostat.Regulate()
