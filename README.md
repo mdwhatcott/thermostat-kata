@@ -1,6 +1,8 @@
 # thermostat-kata
 
-A rendition of Uncle Bob's [Environment Controller kata](https://github.com/unclebob/environmentcontroller), written in go.
+A rendition of Uncle Bob's 
+[Environment Controller kata](https://github.com/unclebob/environmentcontroller), 
+written in go.
 
 [Watch Presentation](http://university.8thlight.com/events/86) by Uncle Bob
 
@@ -15,24 +17,32 @@ To effectively regulate the environment the temperature should never deviate mor
 5 degrees from 70F. If the temperature is ever more than 10 degrees away from
 70F then the appropriate Hi or Lo alarm must sound.
 
-Bad news:  The hardware has not yet arrived so we can't connect to it yet.
-Good news: We have the hardware documentation! The hardware interface is defined as follows:
+Bad news:  The various hardware devices have not yet arrived so we can't connect to them yet.
+Good news: We have the hardware documentation! The hardware interfaces are defined as follows:
 
 ```go
-type Hardware interface {
-	Temperature() int // Returns the current ambient temperature in degrees Fahrenheit.
+package contracts
 
-	SetBlower(on bool)    // Turns the blower on or off.
-	SetCooler(on bool)    // Turns the air conditioner on or off.
-	SetHeater(on bool)    // Turns the heater on or off.
-	SetColdAlarm(on bool) // Turns the cold alarm on or off.
-	SetHeatAlarm(on bool) // Turns the heat alarm on or off.
+type Thermometer interface {
+	CurrentTemperature() int // Current ambient temperature rounded to the nearest degree (Fahrenheit).
+}
 
-	IsBlowing() bool // Returns whether the blower is currently on or off.
-	IsCooling() bool // Returns whether the air conditioner is currently on or off.
-	IsHeating() bool // Returns whether the heater is currently on or off.
-	ColdAlarm() bool // Returns whether the current temperature is below the ideal minus the allowed delta.
-	HeatAlarm() bool // Returns whether the current temperature is above the ideal plus the allowed delta.
+type HVAC interface {
+	SetBlower(state bool) // Turns the blower on or off.
+	SetCooler(state bool) // Turns the cooler on or off.
+	SetHeater(state bool) // Turns the heater on or off.
+
+	IsBlowing() bool // Is the blower currently on (true) or off (false)?
+	IsCooling() bool // Is the cooler currently on (true) or off (false)?
+	IsHeating() bool // Is the heater currently on (true) or off (false)?
+}
+
+type Alarm interface {
+	SetColdAlarm(on bool) // Turns the cold alarm on (true) or off (false).
+	SetHeatAlarm(on bool) // Turns the heat alarm on (true) or off (false).
+
+	ColdAlarm() bool // Is the cold alarm currently on (true) or off (false)?
+	HeatAlarm() bool // Is the heat alarm currently on (true) or off (false)?
 }
 ```
 
@@ -64,8 +74,8 @@ Basic Logic:
 
 Intermediate Logic:
 
-- TODO: 1. cooler turns off if too hot again
-- TODO: 2. heater turns off if too cold again
+- TODO: 1. cooler turns off if too cold again
+- TODO: 2. heater turns off if too hot again
 - TODO: 3. blower stays on when cooling after heating
 - TODO: 4. blower stays on when heating after cooling
 
