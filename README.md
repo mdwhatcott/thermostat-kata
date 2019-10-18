@@ -32,19 +32,21 @@ type HVAC interface {
 	SetCooler(state bool) // Turns the cooler on or off.
 	SetHeater(state bool) // Turns the heater on or off.
 
-	IsBlowing() bool // Is the blower currently on (true) or off (false)?
-	IsCooling() bool // Is the cooler currently on (true) or off (false)?
-	IsHeating() bool // Is the heater currently on (true) or off (false)?
+	IsBlowing() bool // Is the blower currently on or off?
+	IsCooling() bool // Is the cooler currently on or off?
+	IsHeating() bool // Is the heater currently on or off?
 }
 
 type Alarm interface {
-	SetColdAlarm(on bool) // Turns the cold alarm on (true) or off (false).
-	SetHeatAlarm(on bool) // Turns the heat alarm on (true) or off (false).
+	SetColdAlarm(state bool) // Turns the cold alarm on or off.
+	SetHeatAlarm(state bool) // Turns the heat alarm on or off.
 
-	ColdAlarm() bool // Is the cold alarm currently on (true) or off (false)?
-	HeatAlarm() bool // Is the heat alarm currently on (true) or off (false)?
+	ColdAlarm() bool // Is the cold alarm currently on or off?
+	HeatAlarm() bool // Is the heat alarm currently on or off?
 }
 ```
+
+On and off are analogous to the go values `true` and `false`, respectively.
 
 ## Rules specified by hardware manufacturer:
 
