@@ -4,7 +4,7 @@ A rendition of Uncle Bob's
 [Environment Controller kata](https://github.com/unclebob/environmentcontroller), 
 written in go.
 
-[Watch Presentation](http://university.8thlight.com/events/86) by Uncle Bob
+[Watch Presentation](https://vimeo.com/71816368) by Uncle Bob
 
 
 ## The scenario
